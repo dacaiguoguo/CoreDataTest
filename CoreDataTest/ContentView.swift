@@ -38,14 +38,14 @@ func readTextFileAndSplitByNewline() -> [RItem] {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-//        animation: .default)
-//    private var items: FetchedResults<Item>
+    //    @FetchRequest(
+    //        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+    //        animation: .default)
+    //    private var items: FetchedResults<Item>
     @FetchRequest(
         entity: Item.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-//        predicate: NSPredicate(format: "propertyName == %@", "")
+        //        predicate: NSPredicate(format: "propertyName == %@", "")
         animation: .default) private var items: FetchedResults<Item>
 
     @State private var filterValue = ""
@@ -58,48 +58,58 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                TextField("Enter Filter Value", text: $filterValue)
-                    .padding()
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .onChange(of: filterValue, perform: { newValue in
-                        // 在这里处理文本变化
-                        applyFilter() // 这里可以调用一个自定义的方法来重新应用筛选条件
-                    })
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.name ?? "")")
-                    } label: {
-                        Text("\(item.name ?? "")")
+            VStack {
+                HStack {
+                    TextField("Enter Filter Value", text: $filterValue)
+                        .padding(10)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .onSubmit {
+                            applyFilter()
+                        }
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
+                    if !filterValue.isEmpty {
+                        Button(action: {
+                            filterValue = ""
+                            applyFilter()
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                        }
+                        .padding(10)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(10)
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                List {
+                    ForEach(items) { item in
+                        NavigationLink {
+                            Text("Item at \(item.name ?? "")")
+                        } label: {
+                            Text("\(item.name ?? "")")
+                        }
                     }
+                    .onDelete(perform: deleteItems)
                 }
             }
-            Text("Select an item")
-        }
+            .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
+            .onAppear{addAllItem()}
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 
-    private func addItem() {
-        withAnimation {
-
-
-            // 调用函数来读取文件和拆分文本
-            let lines = readTextFileAndSplitByNewline()
-            lines.forEach { item in
-                let newItem = Item(context: viewContext)
-                newItem.timestamp = Date()
-                newItem.name = item.content
-                newItem.url = getUrl(item)
+    private func addAllItem() {
+        DispatchQueue.global().async {
+            if items.count == 0 {
+                // 调用函数来读取文件和拆分文本
+                let lines = readTextFileAndSplitByNewline()
+                DispatchQueue.main.async {
+                    lines.forEach { element in
+                        let newItem = Item(context: viewContext)
+                        newItem.timestamp = Date()
+                        newItem.name = element.content
+                        newItem.url = getUrl(element)
+                        viewContext.insert(newItem)
+                    }
+                }
                 // 保存实体
                 do {
                     try viewContext.save()
@@ -109,8 +119,11 @@ struct ContentView: View {
                     let nsError = error as NSError
                     fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
                 }
+            } else {
+                print("Error counting records")
             }
         }
+
     }
 
     private func getUrl(_ item: RItem) -> URL {
@@ -151,30 +164,5 @@ private let itemFormatter: DateFormatter = {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
-
-
-
-struct SearchBar: View {
-    @Binding var searchText: String
-
-    var body: some View {
-        HStack {
-            TextField("Search", text: $searchText)
-                .padding(10)
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-            if !searchText.isEmpty {
-                Button(action: {
-                    searchText = ""
-                }) {
-                    Image(systemName: "xmark.circle.fill")
-                }
-                .padding(10)
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-            }
-        }
     }
 }
