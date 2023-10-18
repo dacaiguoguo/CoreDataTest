@@ -86,9 +86,13 @@ struct ContentView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         ForEach(items) { item in
-                            Link(item.name ?? "", destination: item.url!)
-                                .foregroundColor(.primary)
-                                .font(.headline).padding()
+                            HStack{
+                                Text(item.name ?? "")
+                                Spacer()
+                                Link("详细", destination: item.url!)
+                                    .foregroundColor(.blue)
+                                    .font(.subheadline)
+                            }.padding()
                             Divider()
                         }
                     }
