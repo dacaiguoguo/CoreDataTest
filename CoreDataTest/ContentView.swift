@@ -128,7 +128,7 @@ struct ContentView: View {
             }
             // 将不重复的行内容写回文件
             let uniqueContent = uniqueLines.joined(separator: "\n")
-            try uniqueContent.write(toFile: "/Users/sunyanguo/Developer/CoreDataTest/CoreDataTest/chaizi-jt.txt", atomically: false, encoding: .utf8)
+            try uniqueContent.write(toFile: "/Users/sunyanguo/Developer/CoreDataTest/CoreDataTest/chaizi-ft.txt", atomically: false, encoding: .utf8)
 
             print("重复行已经被移除并写回到文件，顺序保持不变。")
         } catch {
@@ -137,10 +137,10 @@ struct ContentView: View {
     }
 
     private func addAllItem() {
-//        if let filePath = Bundle.main.path(forResource: "chaizi-jt", ofType: "txt") {
-//            readAndRemoveDuplicatesFromFile(filePath: filePath)
-//        }
-
+        if let filePath = Bundle.main.path(forResource: "chaizi-jt", ofType: "txt") {
+            readAndRemoveDuplicatesFromFile(filePath: filePath)
+        }
+        return;
         if UserDefaults.standard.bool(forKey: "addAllItem2") == false {
             // 调用函数来读取文件和拆分文本
             let lines = readTextFileAndSplitByNewline()
