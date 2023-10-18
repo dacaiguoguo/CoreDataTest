@@ -100,7 +100,7 @@ struct ContentView: View {
 
             }
             .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing:completeStatus())
+            .navigationBarItems(leading: Image("AppIconSmall"), trailing:completeStatus())
             .onAppear(perform: addAllItem)
         }.navigationViewStyle(StackNavigationViewStyle())
     }
