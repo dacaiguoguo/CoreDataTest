@@ -14,6 +14,9 @@ struct CoreDataTestApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    print("\(NSHomeDirectory())")
+                }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

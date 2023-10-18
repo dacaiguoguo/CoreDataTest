@@ -13,6 +13,7 @@
 		9D2238AE2ADF7042005BC95A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238AD2ADF7042005BC95A /* Preview Assets.xcassets */; };
 		9D2238B02ADF7042005BC95A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238AF2ADF7042005BC95A /* Persistence.swift */; };
 		9D2238B32ADF7042005BC95A /* CoreDataTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238B12ADF7042005BC95A /* CoreDataTest.xcdatamodeld */; };
+		9D2238BA2ADF7302005BC95A /* chaizi-jt.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238B92ADF7302005BC95A /* chaizi-jt.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		9D2238AD2ADF7042005BC95A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D2238AF2ADF7042005BC95A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		9D2238B22ADF7042005BC95A /* CoreDataTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTest.xcdatamodel; sourceTree = "<group>"; };
+		9D2238B92ADF7302005BC95A /* chaizi-jt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chaizi-jt.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */,
 				9D2238A82ADF7040005BC95A /* ContentView.swift */,
+				9D2238B92ADF7302005BC95A /* chaizi-jt.txt */,
 				9D2238AA2ADF7042005BC95A /* Assets.xcassets */,
 				9D2238AF2ADF7042005BC95A /* Persistence.swift */,
 				9D2238B12ADF7042005BC95A /* CoreDataTest.xcdatamodeld */,
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D2238BA2ADF7302005BC95A /* chaizi-jt.txt in Resources */,
 				9D2238AE2ADF7042005BC95A /* Preview Assets.xcassets in Resources */,
 				9D2238AB2ADF7042005BC95A /* Assets.xcassets in Resources */,
 			);
