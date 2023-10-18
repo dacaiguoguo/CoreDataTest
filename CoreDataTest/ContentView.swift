@@ -53,14 +53,9 @@ func readTextFileAndSplitByNewline() -> [RItem] {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
-    //    @FetchRequest(
-    //        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-    //        animation: .default)
-    //    private var items: FetchedResults<Item>
     @FetchRequest(
         entity: Item.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        //        predicate: NSPredicate(format: "propertyName == %@", "")
         animation: .default) private var items: FetchedResults<Item>
 
     @State private var filterValue = ""
@@ -111,7 +106,6 @@ struct ContentView: View {
                                     Text("详细").foregroundColor(.blue)
                                         .font(.subheadline)
                                 }
-
                             }.padding()
                             Divider()
                         }
@@ -132,13 +126,13 @@ struct ContentView: View {
             }
         }
     }
+
     func content(_ item:Item) -> some View {
         let str = item.name ?? " "
         var result = AttributedString(stringLiteral: String(str.first!))
         result.font = .title2.bold()
         var result2 = AttributedString("  ")
         result2.font = .headline
-
         var result3 = AttributedString(str.dropFirst())
         result3.font = .headline
         return Text(result + result2 + result3)
