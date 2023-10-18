@@ -35,6 +35,7 @@ func readTextFileAndSplitByNewline() -> [RItem] {
 }
 
 
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -77,7 +78,8 @@ struct ContentView: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
             }
-        }
+        }.padding(10)
+
     }
     var body: some View {
         NavigationView {
@@ -87,7 +89,7 @@ struct ContentView: View {
                     LazyVStack(alignment: .leading) {
                         ForEach(items) { item in
                             HStack{
-                                Text(item.name ?? "")
+                                content(item)
                                 Spacer()
                                 Link("详细", destination: item.url!)
                                     .foregroundColor(.blue)
@@ -111,6 +113,17 @@ struct ContentView: View {
                 SettingView()
             }
         }
+    }
+    func content(_ item:Item) -> some View {
+        let str = item.name ?? " "
+        var result = AttributedString(stringLiteral: String(str.first!))
+        result.font = .title2.bold()
+        var result2 = AttributedString("  ")
+        result2.font = .headline
+
+        var result3 = AttributedString(str.dropFirst())
+        result3.font = .headline
+        return Text(result + result2 + result3)
     }
 
 
@@ -136,11 +149,31 @@ struct ContentView: View {
         }
     }
 
-    private func addAllItem() {
-        if let filePath = Bundle.main.path(forResource: "chaizi-jt", ofType: "txt") {
-            readAndRemoveDuplicatesFromFile(filePath: filePath)
+    func deleteAllData() {
+        let context = viewContext // 你的托管对象上下文
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item") // 替换为你的实体名
+
+        do {
+            let objects = try context.fetch(fetchRequest)
+            for case let object as NSManagedObject in objects {
+                context.delete(object)
+            }
+
+            try context.save()
+            print("所有数据已被删除。")
+        } catch {
+            print("删除数据时出错: \(error)")
         }
-        return;
+
+        UserDefaults.standard.removeObject(forKey: "addAllItem2")
+    }
+
+    private func addAllItem() {
+        //  if let filePath = Bundle.main.path(forResource: "chaizi-ft", ofType: "txt") {
+        //      readAndRemoveDuplicatesFromFile(filePath: filePath)
+        //  }
+        // deleteAllData()
+        // return;
         if UserDefaults.standard.bool(forKey: "addAllItem2") == false {
             // 调用函数来读取文件和拆分文本
             let lines = readTextFileAndSplitByNewline()
