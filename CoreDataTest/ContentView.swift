@@ -97,7 +97,7 @@ struct ContentView: View {
             }
             .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(trailing:completeStatus())
-            .onAppear{addAllItem()}
+            .onAppear(perform: addAllItem)
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 
@@ -109,8 +109,36 @@ struct ContentView: View {
         }
     }
 
+
+    func readAndRemoveDuplicatesFromFile(filePath: String) {
+        do {
+            let fileContents = try String(contentsOfFile: filePath, encoding: .utf8)
+            var uniqueLines = [String]() // 用于存储不重复的行
+
+            let lines = fileContents.components(separatedBy: .newlines)
+
+            for line in lines {
+                if !uniqueLines.contains(line) {
+                    uniqueLines.append(line)
+                }
+            }
+
+            // 将不重复的行内容写回文件
+            let uniqueContent = uniqueLines.joined(separator: "\n")
+            try uniqueContent.write(toFile: "/Users/sunyanguo/Developer/CoreDataTest/CoreDataTest/chaizi-jt.txt", atomically: false, encoding: .utf8)
+
+            print("重复行已经被移除并写回到文件，顺序保持不变。")
+        } catch {
+            print("读取文件时出错: \(error)")
+        }
+    }
+
     private func addAllItem() {
-        if UserDefaults.standard.bool(forKey: "addAllItem") == false {
+//        if let filePath = Bundle.main.path(forResource: "chaizi-jt", ofType: "txt") {
+//            readAndRemoveDuplicatesFromFile(filePath: filePath)
+//        }
+
+        if UserDefaults.standard.bool(forKey: "addAllItem2") == false {
             // 调用函数来读取文件和拆分文本
             let lines = readTextFileAndSplitByNewline()
             lines.forEach { element in
@@ -123,7 +151,7 @@ struct ContentView: View {
             // 保存实体
             do {
                 try viewContext.save()
-                UserDefaults.standard.set(true, forKey: "addAllItem")
+                UserDefaults.standard.set(true, forKey: "addAllItem2")
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
