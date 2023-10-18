@@ -100,7 +100,7 @@ struct ContentView: View {
 
     func completeStatus() -> some View {
         Group {
-            NavigationLink("关于 拆字字典app") {
+            NavigationLink("关于") {
                 SettingView()
             }
         }
@@ -180,7 +180,7 @@ public struct SettingView: View {
 
     public init(){}
 
-    let channelLocalDataList:[Channel] = [Channel(channelID: "1", name: "关于", link: "https://dacaiguoguo.github.io/ChaiziPrivacyPolicy.html"),
+    let channelLocalDataList:[Channel] = [Channel(channelID: "1", name: "关于 拆字字典app", link: "https://dacaiguoguo.github.io/ChaiziPrivacyPolicy.html"),
                                           Channel(channelID: "2", name: "联系我", link: "mailto:dacaiguoguo@163.com")]
 
     public var body: some View {
