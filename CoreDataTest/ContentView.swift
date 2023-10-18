@@ -93,8 +93,17 @@ struct ContentView: View {
 
             }
             .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing:completeStatus())
             .onAppear{addAllItem()}
         }.navigationViewStyle(StackNavigationViewStyle())
+    }
+
+    func completeStatus() -> some View {
+        Group {
+            NavigationLink("关于 拆字字典app") {
+                SettingView()
+            }
+        }
     }
 
     private func addAllItem() {
@@ -152,3 +161,40 @@ struct ContentView_Previews: PreviewProvider {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+
+
+struct Channel: Decodable {
+    var channelID:String = ""
+    var name:String = ""
+    var link:String = ""
+}
+
+extension Channel: Identifiable {
+    var id: String {
+        channelID
+    }
+}
+
+public struct SettingView: View {
+
+
+    public init(){}
+
+    let channelLocalDataList:[Channel] = [Channel(channelID: "1", name: "关于", link: "https://dacaiguoguo.github.io/ChaiziPrivacyPolicy.html"),
+                                          Channel(channelID: "2", name: "联系我", link: "mailto:dacaiguoguo@163.com")]
+
+    public var body: some View {
+
+        List {
+            Section(content: {
+                ForEach(channelLocalDataList) { channel in
+                    Link(LocalizedStringKey(channel.name), destination: URL(string: channel.link)!)
+                        .foregroundColor(.blue)
+                        .font(.headline)
+                }
+            })
+        }.navigationTitle("TitleHelp")
+            .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
