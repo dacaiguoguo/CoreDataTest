@@ -55,31 +55,34 @@ struct ContentView: View {
         items.nsPredicate = filterValue.isEmpty ? nil :NSPredicate(format: "name CONTAINS[c] %@", filterValue)
     }
 
-
+    func inputView() -> some View {
+        HStack {
+            TextField("输入要搜索的字", text: $filterValue)
+                .padding(10)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .onSubmit {
+                    applyFilter()
+                }
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .submitLabel(.go)
+            if !filterValue.isEmpty {
+                Button(action: {
+                    filterValue = ""
+                    applyFilter()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                }
+                .padding(10)
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+            }
+        }
+    }
     var body: some View {
         NavigationView {
             VStack {
-                HStack {
-                    TextField("输入要搜索的字", text: $filterValue)
-                        .padding(10)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .onSubmit {
-                            applyFilter()
-                        }
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                    if !filterValue.isEmpty {
-                        Button(action: {
-                            filterValue = ""
-                            applyFilter()
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                        }
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                    }
-                }
+                inputView()
                 ScrollView {
                     LazyVStack(alignment: .leading) {
                         ForEach(items) { item in
