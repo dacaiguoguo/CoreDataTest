@@ -25,6 +25,7 @@
 		9D2238AF2ADF7042005BC95A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		9D2238B22ADF7042005BC95A /* CoreDataTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTest.xcdatamodel; sourceTree = "<group>"; };
 		9D2238B92ADF7302005BC95A /* chaizi-jt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chaizi-jt.txt"; sourceTree = "<group>"; };
+		9D7CC5E72ADF92D00040F644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 		9D2238A52ADF7040005BC95A /* CoreDataTest */ = {
 			isa = PBXGroup;
 			children = (
+				9D7CC5E72ADF92D00040F644 /* Info.plist */,
 				9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */,
 				9D2238A82ADF7040005BC95A /* ContentView.swift */,
 				9D2238B92ADF7302005BC95A /* chaizi-jt.txt */,
@@ -282,8 +284,7 @@
 				DEVELOPMENT_TEAM = AJG2826637;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "拆字字典";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_FILE = CoreDataTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -314,8 +315,7 @@
 				DEVELOPMENT_TEAM = AJG2826637;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "拆字字典";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_FILE = CoreDataTest/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
