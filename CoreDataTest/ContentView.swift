@@ -7,6 +7,20 @@
 
 import SwiftUI
 import CoreData
+import SafariServices
+
+struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        let safariViewController = SFSafariViewController(url: url)
+        return safariViewController
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
+        // 更新视图控制器，如果需要
+    }
+}
 
 struct RItem: Hashable, Identifiable {
     var id: String {
@@ -91,9 +105,13 @@ struct ContentView: View {
                             HStack{
                                 content(item)
                                 Spacer()
-                                Link("详细", destination: item.url!)
-                                    .foregroundColor(.blue)
-                                    .font(.subheadline)
+                                NavigationLink {
+                                    SafariView(url: item.url!)
+                                } label: {
+                                    Text("详细").foregroundColor(.blue)
+                                        .font(.subheadline)
+                                }
+
                             }.padding()
                             Divider()
                         }
@@ -254,6 +272,7 @@ public struct SettingView: View {
                         .font(.headline)
                 }
             })
+
         }.navigationTitle("TitleHelp")
             .navigationBarTitleDisplayMode(.inline)
     }
