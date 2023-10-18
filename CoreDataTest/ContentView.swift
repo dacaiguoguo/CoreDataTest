@@ -122,7 +122,6 @@ struct ContentView: View {
                     uniqueLines.append(line)
                 }
             }
-
             // 将不重复的行内容写回文件
             let uniqueContent = uniqueLines.joined(separator: "\n")
             try uniqueContent.write(toFile: "/Users/sunyanguo/Developer/CoreDataTest/CoreDataTest/chaizi-jt.txt", atomically: false, encoding: .utf8)
@@ -158,13 +157,7 @@ struct ContentView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
-
-
-        } else {
-            print("Error counting records")
         }
-
-
     }
 
     private func getUrl(_ item: RItem) -> URL {
