@@ -60,7 +60,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 HStack {
-                    TextField("Enter Filter Value", text: $filterValue)
+                    TextField("输入要搜索的字", text: $filterValue)
                         .padding(10)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .onSubmit {
@@ -80,16 +80,17 @@ struct ContentView: View {
                         .cornerRadius(10)
                     }
                 }
-                List {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            Text("Item at \(item.name ?? "")")
-                        } label: {
-                            Text("\(item.name ?? "")")
+                ScrollView {
+                    LazyVStack(alignment: .leading) {
+                        ForEach(items) { item in
+                            Link(item.name ?? "", destination: item.url!)
+                                .foregroundColor(.primary)
+                                .font(.headline).padding()
+                            Divider()
                         }
                     }
-                    .onDelete(perform: deleteItems)
                 }
+
             }
             .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
             .onAppear{addAllItem()}
@@ -97,32 +98,32 @@ struct ContentView: View {
     }
 
     private func addAllItem() {
-        DispatchQueue.global().async {
-            if items.count == 0 {
-                // 调用函数来读取文件和拆分文本
-                let lines = readTextFileAndSplitByNewline()
-                DispatchQueue.main.async {
-                    lines.forEach { element in
-                        let newItem = Item(context: viewContext)
-                        newItem.timestamp = Date()
-                        newItem.name = element.content
-                        newItem.url = getUrl(element)
-                        viewContext.insert(newItem)
-                    }
-                }
-                // 保存实体
-                do {
-                    try viewContext.save()
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nsError = error as NSError
-                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-                }
-            } else {
-                print("Error counting records")
+        if UserDefaults.standard.bool(forKey: "addAllItem") == false {
+            // 调用函数来读取文件和拆分文本
+            let lines = readTextFileAndSplitByNewline()
+            lines.forEach { element in
+                let newItem = Item(context: viewContext)
+                newItem.timestamp = Date()
+                newItem.name = element.content
+                newItem.url = getUrl(element)
+                viewContext.insert(newItem)
             }
+            // 保存实体
+            do {
+                try viewContext.save()
+                UserDefaults.standard.set(true, forKey: "addAllItem")
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+
+
+        } else {
+            print("Error counting records")
         }
+
 
     }
 
@@ -136,21 +137,6 @@ struct ContentView: View {
             print("字符串为空：\(item.index)")
         }
         return URL(string: "https://dict.baidu.com")!
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
     }
 }
 
