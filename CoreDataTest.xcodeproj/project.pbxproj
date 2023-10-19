@@ -16,6 +16,8 @@
 		9D2238BA2ADF7302005BC95A /* chaizi-jt.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238B92ADF7302005BC95A /* chaizi-jt.txt */; };
 		9D3BD7062AE0EF090060AD70 /* ChaiZiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3BD7052AE0EF090060AD70 /* ChaiZiView.swift */; };
 		9DA7ADD22AE1603100C3AFEE /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7ADD12AE1603100C3AFEE /* SettingView.swift */; };
+		9DA7ADD52AE1654800C3AFEE /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA7ADD42AE1654800C3AFEE /* SafariServices.framework */; };
+		9DA7ADD72AE1655E00C3AFEE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DA7ADD62AE1655D00C3AFEE /* CoreData.framework */; };
 		9DB542AE2AE0080600CC8562 /* chaizi-ft.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +33,8 @@
 		9D3BD7052AE0EF090060AD70 /* ChaiZiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiZiView.swift; sourceTree = "<group>"; };
 		9D7CC5E72ADF92D00040F644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9DA7ADD12AE1603100C3AFEE /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		9DA7ADD42AE1654800C3AFEE /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		9DA7ADD62AE1655D00C3AFEE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chaizi-ft.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -39,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DA7ADD52AE1654800C3AFEE /* SafariServices.framework in Frameworks */,
+				9DA7ADD72AE1655E00C3AFEE /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +56,7 @@
 			children = (
 				9D2238A52ADF7040005BC95A /* CoreDataTest */,
 				9D2238A42ADF7040005BC95A /* Products */,
+				9DA7ADD32AE1654700C3AFEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +92,15 @@
 				9D2238AD2ADF7042005BC95A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9DA7ADD32AE1654700C3AFEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9DA7ADD62AE1655D00C3AFEE /* CoreData.framework */,
+				9DA7ADD42AE1654800C3AFEE /* SafariServices.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

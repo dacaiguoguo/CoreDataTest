@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import SafariServices
 
 
 struct ChaiZiItem: Hashable, Identifiable {
@@ -38,18 +39,12 @@ struct ChaiZiView<T>: View where T:AbsEntity {
                             HStack{
                                 content(item)
                                 Spacer()
-                                NavigationLink {
-                                    SafariView(url: item.url!)
-                                } label: {
-                                    Text("详细").foregroundColor(.blue)
-                                        .font(.subheadline)
-                                }
+                                detailButton(item)
                             }.padding()
                             Divider()
                         }
                     }
                 }
-
             }
             .navigationTitle("拆字字典").navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: Image("AppIconSmall"), trailing:aboutButton())
@@ -88,7 +83,14 @@ struct ChaiZiView<T>: View where T:AbsEntity {
         }.padding(10)
     }
 
-
+    private func detailButton(_ item:T) -> some View {
+        Button("详细") {
+            if let url = item.url {
+                let sc = SFSafariViewController(url: url)
+                UIApplication.shared.windows.first?.rootViewController?.present(sc, animated: true, completion: nil)
+            }
+        }.foregroundColor(.blue).font(.subheadline)
+    }
     private func aboutButton() -> some View {
         Group {
             NavigationLink("关于") {
