@@ -28,10 +28,14 @@ struct ChaiZiView<T>: View where T:AbsEntity {
         animation: .default) private var items: FetchedResults<T>
 
     @State private var filterValue = ""
+    @State private var selectedFruit = "全部"
+
+    var fruits = ["全部", "收藏"]
 
     var body: some View {
         NavigationView {
             VStack {
+                pickerView()
                 inputView()
                 ScrollView {
                     LazyVStack(alignment: .leading) {
@@ -39,6 +43,20 @@ struct ChaiZiView<T>: View where T:AbsEntity {
                             HStack{
                                 content(item)
                                 Spacer()
+                                Button(action: {
+                                    item.isStarred.toggle()
+                                    do {
+                                        try viewContext.save()
+                                        print("Item marked as starred.")
+                                    } catch {
+                                        print("Error saving context: \(error)")
+                                    }
+
+                                }) {
+                                    Image(systemName: item.isStarred ? "star.fill" : "star")
+                                        .foregroundColor(item.isStarred ? .yellow : .gray)
+                                }
+                                .frame(width: 100)
                                 detailButton(item)
                             }.padding()
                             Divider()
@@ -55,7 +73,34 @@ struct ChaiZiView<T>: View where T:AbsEntity {
 
     private func applyFilter() {
         // 更新筛选条件或执行其他操作
-        items.nsPredicate = filterValue.isEmpty ? nil :NSPredicate(format: "name CONTAINS[c] %@", filterValue)
+        // 创建第一个条件：isStarred == true
+        let isStarredPredicate = NSPredicate(format: "isStarred == %d", true)
+        if filterValue.isEmpty {
+            items.nsPredicate = selectedFruit == "全部" ? nil : isStarredPredicate;
+        } else {
+            // 创建第二个条件：name 包含 "W"（不区分大小写）
+            let nameContainsWPredicate = NSPredicate(format: "name CONTAINS[cd] %@", filterValue)
+            if selectedFruit == "全部" {
+                items.nsPredicate = nameContainsWPredicate;
+            } else {
+                // 创建一个复合谓词，将两个条件使用 AND 连接
+                let andPredicate = NSCompoundPredicate(type: .and, subpredicates: [isStarredPredicate, nameContainsWPredicate])
+                items.nsPredicate = andPredicate
+            }
+        }
+    }
+
+    private func pickerView() -> some View {
+        Picker("", selection: $selectedFruit) {
+            ForEach(fruits, id: \.self) {
+                Text($0)
+            }
+        }.pickerStyle(SegmentedPickerStyle()).padding(.horizontal)
+            .onChange(of: selectedFruit) { newValue in
+                // 在选项变化时执行操作
+                print("Selected fruit: \(newValue)")
+                applyFilter()
+            }
     }
 
     private func inputView() -> some View {
@@ -172,6 +217,10 @@ struct ChaiZiView<T>: View where T:AbsEntity {
         //  }
         // deleteAllData()
         // return;
+        if filename == "chaizi-fav" {
+            return;
+        }
+
         let context = viewContext // 你的托管对象上下文
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: String(describing: T.self))
 
@@ -212,7 +261,7 @@ struct ChaiZiView<T>: View where T:AbsEntity {
     }
 }
 
-struct FtContentView_Previews: PreviewProvider {
+struct ChaiZiView_Previews: PreviewProvider {
     static var previews: some View {
         ChaiZiView<FtItem>(filename: "chaizi-ft")
     }
