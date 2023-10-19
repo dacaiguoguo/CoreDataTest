@@ -1,62 +1,20 @@
 //
-//  ContentView.swift
+//  FtContentView.swift
 //  CoreDataTest
 //
-//  Created by yanguo sun on 2023/10/18.
+//  Created by yanguo sun on 2023/10/19.
 //
 
 import SwiftUI
 import CoreData
-import SafariServices
 
-struct SafariView: UIViewControllerRepresentable {
-    let url: URL
-
-    func makeUIViewController(context: Context) -> SFSafariViewController {
-        let safariViewController = SFSafariViewController(url: url)
-        return safariViewController
-    }
-
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {
-        // 更新视图控制器，如果需要
-    }
-}
-
-struct RItem: Hashable, Identifiable {
-    var id: String {
-        "\(index)-\(content)"
-    }
-    let content: String
-    let index: Int
-
-}
-
-func readTextFileAndSplitByNewline(_ resource:String) -> [RItem] {
-    if let filePath = Bundle.main.path(forResource: resource, ofType: "txt") {
-        do {
-            let fileContent = try String(contentsOfFile: filePath, encoding: .utf8)
-            let lines = fileContent.components(separatedBy: .newlines)
-            return lines.enumerated().map { (index, element) in
-                RItem(content: element, index: index)
-            }
-        } catch {
-            print("Error reading the file: \(error)")
-        }
-    } else {
-        print("File not found")
-    }
-    return []
-}
-
-
-
-struct ContentView: View {
+struct FtContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        entity: Item.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default) private var items: FetchedResults<Item>
+        entity: FtItem.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FtItem.timestamp, ascending: true)],
+        animation: .default) private var items: FetchedResults<FtItem>
 
     @State private var filterValue = ""
 
@@ -127,7 +85,7 @@ struct ContentView: View {
         }
     }
 
-    func content(_ item:Item) -> some View {
+    func content(_ item:FtItem) -> some View {
         let str = item.name ?? " "
         var result = AttributedString(stringLiteral: String(str.first!))
         result.font = .title2.bold()
@@ -163,7 +121,7 @@ struct ContentView: View {
 
     func deleteAllData() {
         let context = viewContext // 你的托管对象上下文
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item") // 替换为你的实体名
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "FtItem") // 替换为你的实体名
 
         do {
             let objects = try context.fetch(fetchRequest)
@@ -177,7 +135,7 @@ struct ContentView: View {
             print("删除数据时出错: \(error)")
         }
 
-        UserDefaults.standard.removeObject(forKey: "addAllItem2")
+        UserDefaults.standard.removeObject(forKey: "FtaddAllItem2")
     }
 
     private func addAllItem() {
@@ -186,11 +144,11 @@ struct ContentView: View {
         //  }
         // deleteAllData()
         // return;
-        if UserDefaults.standard.bool(forKey: "addAllItem2") == false {
+        if UserDefaults.standard.bool(forKey: "FtaddAllItem2") == false {
             // 调用函数来读取文件和拆分文本
-            let lines = readTextFileAndSplitByNewline("chaizi-jt")
+            let lines = readTextFileAndSplitByNewline("chaizi-ft")
             lines.forEach { element in
-                let newItem = Item(context: viewContext)
+                let newItem = FtItem(context: viewContext)
                 newItem.timestamp = Date()
                 newItem.name = element.content
                 newItem.url = getUrl(element)
@@ -199,7 +157,7 @@ struct ContentView: View {
             // 保存实体
             do {
                 try viewContext.save()
-                UserDefaults.standard.set(true, forKey: "addAllItem2")
+                UserDefaults.standard.set(true, forKey: "FtaddAllItem2")
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -222,53 +180,8 @@ struct ContentView: View {
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-struct ContentView_Previews: PreviewProvider {
+struct FtContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FtContentView()
     }
 }
-
-
-struct Channel: Decodable {
-    var channelID:String = ""
-    var name:String = ""
-    var link:String = ""
-}
-
-extension Channel: Identifiable {
-    var id: String {
-        channelID
-    }
-}
-
-public struct SettingView: View {
-
-
-    public init(){}
-
-    let channelLocalDataList:[Channel] = [Channel(channelID: "1", name: "关于 拆字字典app", link: "https://dacaiguoguo.github.io/ChaiziPrivacyPolicy.html"),
-                                          Channel(channelID: "2", name: "联系：dacaiguoguo@163.com", link: "mailto:dacaiguoguo@163.com")]
-
-    public var body: some View {
-
-        List {
-            Section(content: {
-                ForEach(channelLocalDataList) { channel in
-                    Link(LocalizedStringKey(channel.name), destination: URL(string: channel.link)!)
-                        .foregroundColor(.blue)
-                        .font(.headline)
-                }
-            })
-
-        }.navigationTitle("TitleHelp")
-            .navigationBarTitleDisplayMode(.inline)
-    }
-}
-

@@ -13,11 +13,28 @@ struct CoreDataTestApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onAppear {
-                    print("\(NSHomeDirectory())")
-                }
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView {
+                ContentView()
+                    .onAppear {
+                        print("\(NSHomeDirectory())")
+                    }
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .tabItem {
+                        Image(systemName: "lasso")
+                        Text("简体")
+                    }
+
+                FtContentView()
+                    .onAppear {
+                        print("\(NSHomeDirectory())")
+                    }
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .tabItem {
+                        Image(systemName: "lasso.and.sparkles")
+                        Text("繁体")
+                    }
+            }
+
         }
     }
 }
