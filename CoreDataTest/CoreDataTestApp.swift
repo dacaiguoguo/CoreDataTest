@@ -14,7 +14,7 @@ struct CoreDataTestApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                FtContentView<JtItem>(filename: "chaizi-jt")
+                ChaiZiView<JtItem>(filename: "chaizi-jt")
                     .onAppear {
                         print("\(NSHomeDirectory())")
                     }
@@ -24,7 +24,7 @@ struct CoreDataTestApp: App {
                         Text("简体")
                     }
 
-                FtContentView<FtItem>(filename: "chaizi-ft")
+                ChaiZiView<FtItem>(filename: "chaizi-ft")
                     .onAppear {
                         print("\(NSHomeDirectory())")
                     }

@@ -8,27 +8,29 @@
 
 /* Begin PBXBuildFile section */
 		9D2238A72ADF7040005BC95A /* CoreDataTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */; };
-		9D2238A92ADF7040005BC95A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238A82ADF7040005BC95A /* ContentView.swift */; };
+		9D2238A92ADF7040005BC95A /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238A82ADF7040005BC95A /* SafariView.swift */; };
 		9D2238AB2ADF7042005BC95A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238AA2ADF7042005BC95A /* Assets.xcassets */; };
 		9D2238AE2ADF7042005BC95A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238AD2ADF7042005BC95A /* Preview Assets.xcassets */; };
 		9D2238B02ADF7042005BC95A /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238AF2ADF7042005BC95A /* Persistence.swift */; };
 		9D2238B32ADF7042005BC95A /* CoreDataTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9D2238B12ADF7042005BC95A /* CoreDataTest.xcdatamodeld */; };
 		9D2238BA2ADF7302005BC95A /* chaizi-jt.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9D2238B92ADF7302005BC95A /* chaizi-jt.txt */; };
-		9D3BD7062AE0EF090060AD70 /* FtContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3BD7052AE0EF090060AD70 /* FtContentView.swift */; };
+		9D3BD7062AE0EF090060AD70 /* ChaiZiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3BD7052AE0EF090060AD70 /* ChaiZiView.swift */; };
+		9DA7ADD22AE1603100C3AFEE /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA7ADD12AE1603100C3AFEE /* SettingView.swift */; };
 		9DB542AE2AE0080600CC8562 /* chaizi-ft.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9D2238A32ADF7040005BC95A /* CoreDataTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestApp.swift; sourceTree = "<group>"; };
-		9D2238A82ADF7040005BC95A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9D2238A82ADF7040005BC95A /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9D2238AA2ADF7042005BC95A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D2238AD2ADF7042005BC95A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D2238AF2ADF7042005BC95A /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		9D2238B22ADF7042005BC95A /* CoreDataTest.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataTest.xcdatamodel; sourceTree = "<group>"; };
 		9D2238B92ADF7302005BC95A /* chaizi-jt.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chaizi-jt.txt"; sourceTree = "<group>"; };
-		9D3BD7052AE0EF090060AD70 /* FtContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FtContentView.swift; sourceTree = "<group>"; };
+		9D3BD7052AE0EF090060AD70 /* ChaiZiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChaiZiView.swift; sourceTree = "<group>"; };
 		9D7CC5E72ADF92D00040F644 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9DA7ADD12AE1603100C3AFEE /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "chaizi-ft.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,16 +64,17 @@
 		9D2238A52ADF7040005BC95A /* CoreDataTest */ = {
 			isa = PBXGroup;
 			children = (
-				9D7CC5E72ADF92D00040F644 /* Info.plist */,
-				9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */,
-				9D2238A82ADF7040005BC95A /* ContentView.swift */,
-				9D3BD7052AE0EF090060AD70 /* FtContentView.swift */,
-				9D2238B92ADF7302005BC95A /* chaizi-jt.txt */,
-				9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */,
 				9D2238AA2ADF7042005BC95A /* Assets.xcassets */,
-				9D2238AF2ADF7042005BC95A /* Persistence.swift */,
+				9DB542AD2AE0080600CC8562 /* chaizi-ft.txt */,
+				9D2238B92ADF7302005BC95A /* chaizi-jt.txt */,
+				9D3BD7052AE0EF090060AD70 /* ChaiZiView.swift */,
 				9D2238B12ADF7042005BC95A /* CoreDataTest.xcdatamodeld */,
+				9D2238A62ADF7040005BC95A /* CoreDataTestApp.swift */,
+				9D7CC5E72ADF92D00040F644 /* Info.plist */,
+				9D2238AF2ADF7042005BC95A /* Persistence.swift */,
 				9D2238AC2ADF7042005BC95A /* Preview Content */,
+				9D2238A82ADF7040005BC95A /* SafariView.swift */,
+				9DA7ADD12AE1603100C3AFEE /* SettingView.swift */,
 			);
 			path = CoreDataTest;
 			sourceTree = "<group>";
@@ -158,8 +161,9 @@
 			files = (
 				9D2238B32ADF7042005BC95A /* CoreDataTest.xcdatamodeld in Sources */,
 				9D2238B02ADF7042005BC95A /* Persistence.swift in Sources */,
-				9D3BD7062AE0EF090060AD70 /* FtContentView.swift in Sources */,
-				9D2238A92ADF7040005BC95A /* ContentView.swift in Sources */,
+				9D3BD7062AE0EF090060AD70 /* ChaiZiView.swift in Sources */,
+				9DA7ADD22AE1603100C3AFEE /* SettingView.swift in Sources */,
+				9D2238A92ADF7040005BC95A /* SafariView.swift in Sources */,
 				9D2238A72ADF7040005BC95A /* CoreDataTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
