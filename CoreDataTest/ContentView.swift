@@ -54,9 +54,9 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        entity: Item.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default) private var items: FetchedResults<Item>
+        entity: JtItem.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \JtItem.timestamp, ascending: true)],
+        animation: .default) private var items: FetchedResults<JtItem>
 
     @State private var filterValue = ""
 
@@ -127,7 +127,7 @@ struct ContentView: View {
         }
     }
 
-    func content(_ item:Item) -> some View {
+    func content(_ item:JtItem) -> some View {
         let str = item.name ?? " "
         var result = AttributedString(stringLiteral: String(str.first!))
         result.font = .title2.bold()
@@ -190,7 +190,7 @@ struct ContentView: View {
             // 调用函数来读取文件和拆分文本
             let lines = readTextFileAndSplitByNewline("chaizi-jt")
             lines.forEach { element in
-                let newItem = Item(context: viewContext)
+                let newItem = JtItem(context: viewContext)
                 newItem.timestamp = Date()
                 newItem.name = element.content
                 newItem.url = getUrl(element)

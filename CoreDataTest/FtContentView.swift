@@ -8,13 +8,15 @@
 import SwiftUI
 import CoreData
 
-struct FtContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
 
+
+struct FtContentView<T>: View where T:AbsEntity {
+    @Environment(\.managedObjectContext) private var viewContext
+    var filename:String
     @FetchRequest(
-        entity: FtItem.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FtItem.timestamp, ascending: true)],
-        animation: .default) private var items: FetchedResults<FtItem>
+        entity: T.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \T.timestamp, ascending: true)],
+        animation: .default) private var items: FetchedResults<T>
 
     @State private var filterValue = ""
 
@@ -85,7 +87,7 @@ struct FtContentView: View {
         }
     }
 
-    func content(_ item:FtItem) -> some View {
+    func content(_ item:T) -> some View {
         let str = item.name ?? " "
         var result = AttributedString(stringLiteral: String(str.first!))
         result.font = .title2.bold()
@@ -146,7 +148,7 @@ struct FtContentView: View {
         // return;
         if UserDefaults.standard.bool(forKey: "FtaddAllItem2") == false {
             // 调用函数来读取文件和拆分文本
-            let lines = readTextFileAndSplitByNewline("chaizi-ft")
+            let lines = readTextFileAndSplitByNewline(filename)
             lines.forEach { element in
                 let newItem = FtItem(context: viewContext)
                 newItem.timestamp = Date()
@@ -182,6 +184,6 @@ struct FtContentView: View {
 
 struct FtContentView_Previews: PreviewProvider {
     static var previews: some View {
-        FtContentView()
+        FtContentView<FtItem>(filename: "chaizi-ft")
     }
 }
