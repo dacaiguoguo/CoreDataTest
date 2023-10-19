@@ -43,6 +43,7 @@ struct ChaiZiView<T>: View where T:AbsEntity {
                             HStack{
                                 content(item)
                                 Spacer()
+                                Text(getPinyin(from: String((item.name?.first)!) ) ?? "")
                                 Button(action: {
                                     item.isStarred.toggle()
                                     do {
@@ -210,6 +211,14 @@ struct ChaiZiView<T>: View where T:AbsEntity {
             print("删除数据时出错: \(error)")
         }
     }
+
+    private func getPinyin(from text: String) -> String? {
+        let mutableString = NSMutableString(string: text) as CFMutableString
+        CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
+        CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
+        return mutableString as String
+    }
+
 
     private func addAllItem() {
         //  if let filePath = Bundle.main.path(forResource: "chaizi-ft", ofType: "txt") {
